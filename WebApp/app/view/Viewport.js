@@ -32,37 +32,19 @@ Ext.define('WebApp.view.Viewport', {
                     handler: function() {
                         Ext.ComponentQuery.query('#CenterTabPanel')[0].getLayout().setActiveItem(1);
                     }
-                },{
-                    xtype: 'button',
-                    text: 'Авторизация',
-                    region: 'east',
-                    margin: '0 20 0 0',
-                    width: 120,
-                    handler: function() {
-                        WebApp.app.getController('WebApp.controller.LoginController').ShowForm();
-                    }
-                },{
-                    xtype: 'button',
-                    text: 'Регистрация',
-                    region: 'east',
-                    margin: '0 40 0 0',
-                    width: 120,
-                    handler: function() {
-                    }
                 },
                 {
-                    xtype: 'panel',
+                    xtype: 'button',
+                    width: 100,
                     region: 'east',
-                    width: 200,
-                    margin: '0 180 0 0',
-                    bodyStyle: 'background:transparent;',
-                    border: false,
-                    region: 'east',
-                    html: '<form action="/Account/LogOff" class="navbar-right" id="logoutForm" method="post">'+
-                            '<input name="__RequestVerificationToken" type="hidden" value="ZHOpUVNJbCyxXZ7KSO5JWgHtAXC_7maNhpc3Wj8uocehmFSZsiHVHbs-KcNPTw5W21-9OZFh-UlITwXrsXMCC_nX-rx7dtLnZywUir0_G2-y0JyVTDHno9mXNpZHERk9bFpcXLL8FUCGBL58H2K4gQ2">' +
-                            '<a href="/Manage" title="Manage">Здравствуйте </a>' +
-                            '<a href="javascript:document.getElementById(\'logoutForm\').submit()">Выйти</a>'
-                }
+                    margin: '0 40 0 0',
+                    handler: function(){
+                        document.getElementById('logoutForm').submit();
+                    },
+                    text: 'Выйти'
+                },
+                {},
+                //'<a href="/Manage" title="Manage">Параметры учетной записи </a>'
             ]
         },
         {
@@ -113,16 +95,7 @@ Ext.define('WebApp.view.Viewport', {
             return {xtype: 'itemsuserlist'};
         }
     },
-    GetUserName: async function(){
-        var url = "Account/GetUserName";
-        let promise = new Promise((resolve, reject)=>{
-             Ext.Ajax.request({
-                url: url,
-                method: 'GET',
-                success: resolve
-            });
-        })
-        let result = await promise;
-        return result.responseText;
-    },
+    GetLogOffForm: function(){
+       return {xtype: 'logoff'};
+    }
 });

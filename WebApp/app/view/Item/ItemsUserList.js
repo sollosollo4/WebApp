@@ -5,9 +5,6 @@ Ext.define('WebApp.view.Item.ItemsUserList', {
     store: 'Items',
     forceFit: true,
     initComponent: function () {
-        this.tbar = [{
-            text: 'wtf'
-        }];
         this.columns = [
             { header: 'Код товара', dataIndex: 'Code', width: 60},
             { header: 'Название товара', dataIndex: 'Name'},

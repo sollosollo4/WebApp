@@ -5,15 +5,15 @@ Ext.onReady(function () {
     Ext.application({
         name: 'WebApp',
         appFolder: '../../app',
-        models: ['Item', 'Order', 'Customer', 'OrderElement', 'Login', 'Register'],
+        models: ['Item', 'Order', 'Customer', 'OrderElement'],
         stores: ['Items'],
         controllers: [
             'ItemsManageListController', 'ItemsUserListController', 
-            'RolesController', 'LoginController'
-        ],
+            'RolesController',        ],
         autoCreateViewport: false,
         launch: function(){
-            WebApp.app.getController('WebApp.controller.RolesController').getRoles();
+            var controller = WebApp.app.getController('WebApp.controller.RolesController')
+            controller.getRoles();
         }
     });    
 });

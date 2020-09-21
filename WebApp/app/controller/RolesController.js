@@ -4,17 +4,22 @@ Ext.define("WebApp.controller.RolesController", {
     views: ['Viewport'],
     getRoles: function() {
         var roles;
-        Ext.Ajax.request({
-            url: 'Account/GetUserRoles',
-            method: 'GET',
-            success: function (response) {
-                roles = Ext.decode(response.responseText);
-                WebApp.User = Ext.create("WebApp.User.User", {
-                    roles: roles
-                });
-                Ext.create("WebApp.view.Viewport");
-            } 
-        });
+        try{
+            Ext.Ajax.request({
+                url: 'https://localhost:44341/Account/GetUserRoles',
+                method: 'GET',
+                success: function (response) {
+                    if(response.responseText){
+                        roles = Ext.decode(response.responseText);
+                        WebApp.User = Ext.create("WebApp.User.User", {
+                            roles: roles
+                        });
+                        Ext.create("WebApp.view.Viewport");
+                    }
+                } 
+            });
+        }catch(e){
+        }
     },
     constructor: function(config) {
         this.initConfig(config);

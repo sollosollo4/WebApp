@@ -426,9 +426,16 @@ namespace WebApp.Controllers
         [HttpGet]
         public JsonResult GetUserRoles()
         {
-            var roles = UserManager.GetRoles(User.Identity.GetUserId()).ToArray();
-            var jsonresult = Json(roles, JsonRequestBehavior.AllowGet);
-            return jsonresult;
+            if (Request.IsAuthenticated)
+            {
+                var roles = UserManager.GetRoles(User.Identity.GetUserId()).ToArray();
+                var jsonresult = Json(roles, JsonRequestBehavior.AllowGet);
+                return jsonresult;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         [HttpGet]
