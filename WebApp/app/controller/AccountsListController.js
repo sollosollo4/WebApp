@@ -1,29 +1,30 @@
-Ext.define('WebApp.controller.ItemsManageListController', {
+Ext.define('WebApp.controller.AccountsListController', {
     extend: 'Ext.app.Controller',
-    stores: ['Items'],
-    views: ['Item.ItemsManageList', 'Item.ItemsManageForm'],
+    stores: ['Accounts'],
+    views: ['Account.AccountsManageList', 'Account.AccountsManageForm'],
     refs: [{
         ref: 'formWindow',
-        xtype: 'itemsmanageform',
-        selector: 'itemsmanageform',
+        xtype: 'accountsmanageform',
+        selector: 'accountsmanageform',
         autoCreate: true
     }],
     init: function () {
         this.control({
-            'itemsmanagelist > toolbar > button[action=add]': {
+            'accountsmanagelist > toolbar > button[action=add]': {
                 click: this.showAddForm
             },
-            'itemsmanagelist': {
+            'accountsmanagelist': {
                 itemdblclick: this.onRowdblclick
             },
-            'itemsmanageform button[action=add]': {
+            'accountsmanageform button[action=add]': {
                 click: this.doAddItem
             }
         });
     },
     onRowdblclick: function (me, record, item, index) {
+        console.log(this);
         var win = this.getFormWindow();
-        win.setTitle('Изменение товара');
+        win.setTitle('Изменение пользователя');
         win.setAction('edit');
         win.setRecordIndex(index);
         win.down('form').getForm().setValues(record.getData());
@@ -31,7 +32,7 @@ Ext.define('WebApp.controller.ItemsManageListController', {
     },
     showAddForm: function () {
         var win = this.getFormWindow();
-        win.setTitle('Добавление товара');
+        win.setTitle('Добавление пользователя');
         win.setAction('add');
         win.down('form').getForm().reset();
         win.show();
@@ -42,14 +43,14 @@ Ext.define('WebApp.controller.ItemsManageListController', {
         var values = win.down('form').getValues();
         debugger;
         var action = win.getAction();
-        var grid = Ext.ComponentQuery.query('itemsmanagelist')[0];
+        var grid = Ext.ComponentQuery.query('accountsmanagelist')[0];
         var id = 0;
         if (grid) {
             var sm = grid.getSelectionModel();
             var rs = sm.getSelection();
             if (rs.length) {
                 var item = rs[0].getData();
-                id = item.ItemId;
+                id = item.Id;
             }
         }
         else
@@ -67,7 +68,7 @@ Ext.define('WebApp.controller.ItemsManageListController', {
             method: 'POST',
             jsonData: values,
             success: function (response) {
-                var grid = Ext.ComponentQuery.query('itemsmanagelist')[0];
+                var grid = Ext.ComponentQuery.query('accountsmanagelist')[0];
                 grid.getStore().load();
             }
         });

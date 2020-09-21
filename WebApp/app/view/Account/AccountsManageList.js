@@ -1,20 +1,29 @@
-Ext.define('WebApp.view.Item.ItemsManageList', {
+Ext.define('WebApp.view.Account.AccountsManageList', {
     extend: 'Ext.grid.Panel',
-    alias: ['widget.itemsmanagelist', 'Ext.grid.plugin.ColumnResizing'],
-    title: 'Каталог товаров',
-    store: 'Items',
+    alias: ['widget.accountsmanagelist', 'Ext.grid.plugin.ColumnResizing'],
+    title: 'Редактор пользователей',
+    store: 'Accounts',
     forceFit: true,
     initComponent: function () {
         this.tbar = [{
-            text: 'Добавить товар',
+            text: 'Добавить пользователя',
             action: 'add',
             iconCls: 'item-add'
         }];
         this.columns = [
-            { header: 'Код товара', dataIndex: 'Code', width: 60},
-            { header: 'Название товара', dataIndex: 'Name'},
-            { header: 'Цена', dataIndex: 'Price'},
-            { header: 'Категория', dataIndex: 'Category'},
+            { header: 'Id', dataIndex: 'Id', width: 5},
+            { header: 'Email', dataIndex: 'Email'},
+            { header: 'EmailConfirmed', dataIndex: 'EmailConfirmed'},
+            { header: 'PasswordHash', dataIndex: 'PasswordHash'},
+            { header: 'SecurityStamp', dataIndex: 'SecurityStamp'},
+            { header: 'PhoneNumber', dataIndex: 'PhoneNumber'},
+            { header: 'PhoneNumberConfirmed', dataIndex: 'PhoneNumberConfirmed'},
+            { header: 'TwoFactorEnabled', dataIndex: 'TwoFactorEnabled'},
+            { header: 'LockoutEndDateUtc', dataIndex: 'LockoutEndDateUtc'},
+            { header: 'LockoutEnabled', dataIndex: 'LockoutEnabled'},
+            { header: 'AccessFailedCount', dataIndex: 'AccessFailedCount'},
+            { header: 'UserName', dataIndex: 'UserName'},
+            { header: 'Customer_CustomerId', dataIndex: 'Customer_CustomerId'},
             {
                 header: 'Удалить', 
                 xtype: 'actioncolumn', 
@@ -32,7 +41,7 @@ Ext.define('WebApp.view.Item.ItemsManageList', {
                             listeners: {
                                 afterrender: function (me) {
                                     me.getEl().on('click', function () {
-                                        var grid = Ext.ComponentQuery.query('itemsmanagelist')[0];
+                                        var grid = Ext.ComponentQuery.query('accountsmanagelist')[0];
                                         if (grid) {
                                             var sm = grid.getSelectionModel();
                                             var rs = sm.getSelection();
@@ -45,13 +54,13 @@ Ext.define('WebApp.view.Item.ItemsManageList', {
                                             function (button) {
                                                 if (button == 'yes') {
                                                     var item = rs[0].getData();
-                                                    var id = item.ItemId;
+                                                    var id = item.Id;
                                                     Ext.Ajax.request({
                                                         url: '/ItemsListManage/DeleteItem',
                                                         method: 'POST',
                                                         jsonData: { 'id': id },
                                                         success: function (response) {
-                                                            var grid = Ext.ComponentQuery.query('itemsmanagelist')[0];
+                                                            var grid = Ext.ComponentQuery.query('accountsmanagelist')[0];
                                                             grid.getStore().load();
                                                         }
                                                     });

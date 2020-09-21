@@ -445,9 +445,9 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetUserStoreAsync()
+        public JsonResult GetUserStoreAsync()
         {
-            var _users = await UserManager.Users.ToListAsync();
+            var _users = UserManager.Users.ToList();
             return Json(_users, JsonRequestBehavior.AllowGet);
         }
 

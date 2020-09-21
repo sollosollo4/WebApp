@@ -1,12 +1,21 @@
 Ext.define('WebApp.store.Accounts', {
     extend: 'Ext.data.Store',
     storeId: 'accountsStore',
-    model: 'WebApp.model.Item',
-    fields: ['Id','Email','EmailConfirmed','PasswordHash','SecurityStamp',
-                'PhoneNumber', 'PhoneNumberConfirmed','TwoFactorEnabled',
-                'LockoutEndDateUtc','LockoutEnabled','AccessFailedCount',
-                'UserName', 'Customer_CustomerId',
-                
+    model: 'WebApp.model.Account',
+    fields: [
+        'Id',
+        'Email',
+        'EmailConfirmed',
+        'PasswordHash',
+        'SecurityStamp',
+        'PhoneNumber', 
+        'PhoneNumberConfirmed',
+        'TwoFactorEnabled',
+        'LockoutEndDateUtc',
+        'LockoutEnabled',
+        'AccessFailedCount',
+        'UserName', 
+        'Customer_CustomerId'
     ],
     proxy: {
         type: 'ajax',

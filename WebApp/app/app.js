@@ -6,13 +6,16 @@ Ext.onReady(function () {
         name: 'WebApp',
         appFolder: '../../app',
         models: ['Item', 'Order', 'Customer', 'OrderElement'],
-        stores: ['Items'],
+        stores: ['Items', 'Accounts'],
         controllers: [
-            'ItemsManageListController', 'ItemsUserListController', 
-            'RolesController',        ],
+            'ItemsManageListController',
+            'ItemsUserListController',
+            'RolesController',
+            'AccountsListController'
+        ],
         autoCreateViewport: false,
         launch: function(){
-            var controller = WebApp.app.getController('WebApp.controller.RolesController')
+            var controller = WebApp.app.getController('WebApp.controller.RolesController');
             controller.getRoles();
         }
     });    
