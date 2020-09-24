@@ -19,11 +19,10 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public string GetItem()
+        public JsonResult GetItem()
         {
             List<Item> _list = db.Items.GetAll().ToList();
-            var objer = JsonConvert.SerializeObject(_list);
-            return objer;
+            return Json(_list, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -31,7 +30,7 @@ namespace WebApp.Controllers
         {
             db.Items.Delete(id);
             db.Save();
-            return "Remove Book Success";
+            return "Remove Success";
         }
 
         [HttpPost]

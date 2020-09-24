@@ -423,6 +423,10 @@ namespace WebApp.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Получение ролей текущего пользователя
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public JsonResult GetUserRoles()
         {
@@ -438,12 +442,20 @@ namespace WebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Получение имени текущего пользователя
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public string GetUserName()
         {
             return User.Identity.Name;
         }
 
+        /// <summary>
+        /// Получение списка всех пользователей
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public JsonResult GetUserStoreAsync()
         {

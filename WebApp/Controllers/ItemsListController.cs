@@ -70,6 +70,89 @@ namespace WebApp.Controllers
             return objer;
         }
 
+        /// <summary>
+        /// Получение корзины текущего пользователя
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public string GetUserBasket()
+        {
+            var userCustomer = GetCurrentUser();
+
+            var userBasket = db.Orders.GetAll().FirstOrDefault(x => x.CustomerId == userCustomer.CustomerId && x.Status == "Новый");
+            if (userBasket != null) { 
+                var jsonResult = JsonConvert.SerializeObject(userBasket.OrderElement);
+                return jsonResult;
+            }
+            else
+                return "";
+        }
+
+        /// <summary>
+        /// Добавление элемента в корзину
+        /// </summary>
+        /// <param name="item">Элемент Item</param>
+        /// <returns></returns>
+        [HttpPost]
+        public string AddItemToUserBasket(Item item)
+        {
+            var userCustomer = GetCurrentUser();
+            Order startOrder;
+            if (userCustomer.Order.SingleOrDefault(x => x.Status == "Новый") == null)
+            {
+                startOrder = new Order()
+                {
+                    Customer = userCustomer,
+                    OrderDate = DateTime.Now,
+                    Status = "Новый",
+                    OrderNumber = db.Orders.GetOrderNumber()
+                };
+                db.Orders.Create(startOrder);
+            }
+            else
+                startOrder = userCustomer.Order.SingleOrDefault(x => x.Status == "Новый");
+
+            OrderElement newOrderElement = db.OrderElements.GetAll().SingleOrDefault(x => x.ItemId == item.ItemId);
+
+            if (newOrderElement != null)
+            {
+                ChangeItemCountInBasket(item, newOrderElement.ItemsCount + 1);
+            }
+            else
+            {
+                newOrderElement = new OrderElement()
+                {
+                    ItemId = item.ItemId,
+                    OrderId = startOrder.OrderId,
+                    ItemsCount = 1,
+                    ItemPrice = item.Price
+                };
+
+                db.OrderElements.Create(newOrderElement);
+            }
+
+            db.Save();
+            return "successful item element added in basket";
+        }
+
+        [HttpPost]
+        public string ChangeItemCountInBasket(Item item, int count)
+        {
+            var userCustomer = GetCurrentUser();
+            var userOrder = userCustomer.Order.SingleOrDefault(x => x.Status == "Новый");
+
+            userOrder.OrderElement.SingleOrDefault(x => x.ItemId == item.ItemId).ItemsCount = count;
+            db.Save();
+            return "successful change item count in basket";
+        }
+
+        private Customer GetCurrentUser()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            return db.Customers.GetAll().FirstOrDefault(x =>
+                                x.CustomerId == user.CustomerId);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

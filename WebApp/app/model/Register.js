@@ -1,10 +1,10 @@
 Ext.define('WebApp.model.Register', {
-    extend: 'Ext.data.Model',
-    fields: [
+  extend: 'Ext.data.Model',
+  fields: [
     {name : 'Login'}, 
     {name : 'OrganizationName'},
-		{name : 'Email'},
+    {name : 'Email'},
     {name : 'Password'},
     {name : 'ConfirmPassword'},
-	],
+  ],
 });

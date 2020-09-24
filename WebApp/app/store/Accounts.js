@@ -1,7 +1,7 @@
 Ext.define('WebApp.store.Accounts', {
     extend: 'Ext.data.Store',
-    storeId: 'accountsStore',
     model: 'WebApp.model.Account',
+    storeId: 'AccountsStore',
     fields: [
         'Id',
         'Email',
@@ -15,7 +15,7 @@ Ext.define('WebApp.store.Accounts', {
         'LockoutEnabled',
         'AccessFailedCount',
         'UserName', 
-        'Customer_CustomerId'
+        'CustomerId'
     ],
     proxy: {
         type: 'ajax',

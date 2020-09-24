@@ -23,10 +23,14 @@ textarea {
     max-width: 280px;
 }
 
-#tabbar-1017-innerCt {
+#CenterTabPanel {
+    display: none;
+}
+
+/*#tabbar-1017-innerCt {
     display: none;
 }
 
 #tabbar-1019-innerCt {
     display: none;
-}
+}*/

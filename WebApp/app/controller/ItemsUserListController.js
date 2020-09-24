@@ -3,6 +3,5 @@ Ext.define('WebApp.controller.ItemsUserListController', {
     stores: ['Items'],
     views: ['Item.ItemsUserList'],
     init: function () {
-       
     },
 });

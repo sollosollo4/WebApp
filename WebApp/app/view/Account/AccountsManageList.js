@@ -23,7 +23,7 @@ Ext.define('WebApp.view.Account.AccountsManageList', {
             { header: 'LockoutEnabled', dataIndex: 'LockoutEnabled'},
             { header: 'AccessFailedCount', dataIndex: 'AccessFailedCount'},
             { header: 'UserName', dataIndex: 'UserName'},
-            { header: 'Customer_CustomerId', dataIndex: 'Customer_CustomerId'},
+            { header: 'CustomerId', dataIndex: 'CustomerId'},
             {
                 header: 'Удалить', 
                 xtype: 'actioncolumn', 

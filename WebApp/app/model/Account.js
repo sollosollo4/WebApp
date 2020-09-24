@@ -13,6 +13,6 @@ Ext.define('WebApp.model.Account', {
         {name: 'LockoutEnabled'},
         {name: 'AccessFailedCount'},
         {name: 'UserName'}, 
-        {name: 'Customer_CustomerId'},
+        {name: 'CustomerId'},
     ]
 });

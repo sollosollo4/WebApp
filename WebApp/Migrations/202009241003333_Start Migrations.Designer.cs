@@ -7,13 +7,13 @@ namespace WebApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addguidautoincrement : IMigrationMetadata
+    public sealed partial class StartMigrations : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addguidautoincrement));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(StartMigrations));
         
         string IMigrationMetadata.Id
         {
-            get { return "202009190015316_add guid auto increment"; }
+            get { return "202009241003333_Start Migrations"; }
         }
         
         string IMigrationMetadata.Source

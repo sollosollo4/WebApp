@@ -6,51 +6,27 @@ Ext.define('WebApp.view.Viewport', {
         type: 'border'
     },
     id: 'mainviewport',
+    // Загрузка компонента
     initComponent: function() {
         var items = [];
         // Панель управления
         items.push({
             xtype: 'panel',
-            title: 'Панель управления',
+            title: 'Панель управления интернет магазина',
             region: 'north',
             height: 70,
             layout: 'border',
+            defaults: {
+                margin: '3 40 3 40'
+            },
             // Кнопки
             items:[
-                /* Каталог товаров */ {
-                    xtype: 'button',
-                    text: 'Каталог товаров',
-                    region: 'west',
-                    margin: '0 0 0 40',
-                    width: 120,
-                    handler: function() {
-                        Ext.ComponentQuery.query('#CenterTabPanel')[0].getLayout().setActiveItem(0);
-                    }
-                },
-                /* Корзина */ {
-                    xtype: 'button',
-                    text: 'Корзина',
-                    region: 'west',
-                    margin: '0 0 0 20',
-                    width: 120,
-                    handler: function() {
-                        Ext.ComponentQuery.query('#CenterTabPanel')[0].getLayout().setActiveItem(1);
-                    }
-                },
+                /* Каталог товаров */ this.GetCatalogButton(),
+                /* Корзина */ this.GetBasketButton(),
                 /* Заказы */ this.GetOrdersRedacorButton(),
                 /* Заказчики */ this.GetCustomersButton(),
                 /* Пользователи */ this.GetAccountsRedacorButton(),
-                /* Выйти */ {
-                    xtype: 'button',
-                    width: 120,
-                    text: 'Выйти',
-                    region: 'east',
-                    margin: '0 20 0 0',
-                    handler: function(){
-                        document.getElementById('logoutForm').submit();
-                    },
-                    
-                },
+                /* Выйти */ this.GetExitButton()
                 //'<a href="/Manage" title="Manage">Параметры учетной записи </a>'
             ]
         },
@@ -62,12 +38,9 @@ Ext.define('WebApp.view.Viewport', {
             split: true,
             maxHeight: 400,
         },
-        /* Панель филтрации */ {
+        /* Панель фильтрации */ {
             xtype: 'panel',
             title: 'Фильтрация',
-            tools: [{
-                type: 'search'
-            }],
             region: 'west',
             width: 120,
             split: true,
@@ -102,13 +75,34 @@ Ext.define('WebApp.view.Viewport', {
         this.callParent(arguments);
     },
     // Кнопки верхней панели
+    GetCatalogButton: function(){
+        return {
+            xtype: 'button',
+            text: 'Каталог товаров',
+            region: 'west',
+            width: 120,
+            handler: function() {
+                Ext.ComponentQuery.query('#CenterTabPanel')[0].getLayout().setActiveItem(0);
+            }
+        };
+    },
+    GetBasketButton: function(){
+        return {
+            xtype: 'button',
+            text: 'Корзина',
+            region: 'west',
+            width: 120,
+            handler: function() {
+                Ext.ComponentQuery.query('#CenterTabPanel')[0].getLayout().setActiveItem(1);
+            }
+        };
+    },
     GetOrdersRedacorButton: function() {
         if(WebApp.User.isUserInRole(["manager","admin"])){
             return {
                 xtype: 'button',
                 text: 'Редактор заказов',
                 region: 'east',
-                margin: '0 20 0 0',
                 width: 160,
                 handler: function() {
                     Ext.ComponentQuery.query('#CenterTabPanel')[0].getLayout().setActiveItem(2);
@@ -123,7 +117,6 @@ Ext.define('WebApp.view.Viewport', {
                 xtype: 'button',
                 text: 'Список заказчиков',
                 region: 'east',
-                margin: '0 20 0 0',
                 width: 160,
                 handler: function() {
                     Ext.ComponentQuery.query('#CenterTabPanel')[0].getLayout().setActiveItem(3);
@@ -138,7 +131,6 @@ Ext.define('WebApp.view.Viewport', {
                     xtype: 'button',
                     text: 'Редактор пользователей',
                     region: 'east',
-                    margin: '0 20 0 0',
                     width: 180,
                     handler: function() {
                         Ext.ComponentQuery.query('#CenterTabPanel')[0].getLayout().setActiveItem(4);
@@ -147,7 +139,19 @@ Ext.define('WebApp.view.Viewport', {
         }
         return null;
     },
-    // Панель
+    GetExitButton: function(){
+        return {
+            xtype: 'button',
+            width: 120,
+            text: 'Выйти',
+            region: 'east',
+            handler: function(){
+                document.getElementById('logoutForm').submit();
+            },
+            
+        };
+    },
+    // Панель (Все элементы являются TabPageView)
     GetItemListByRole: function() {
         if(WebApp.User.isUserInRole(["manager"])){
             return {xtype: 'itemsmanagelist'};
@@ -157,7 +161,57 @@ Ext.define('WebApp.view.Viewport', {
         }
     },
     GetBasket: function() {
-        return {xtype: 'panel', title:'Корзина', html: 'Корзина'};
+        return {
+            xtype: 'panel',
+            layout: {
+                type: 'vbox',
+                align: 'stretch',
+            },
+            title: 'Корзина',
+            items:[{
+                xtype: 'basket',
+            }, {
+                xtype: 'panel',
+                layout: {
+                    type: 'vbox',
+                    align: 'center',
+                    pack: 'center'
+                },
+                items:[
+                /*Выбор даты доставки */{
+                    title: 'Выберите дату доставки',
+                    xtype: 'datepicker',
+                    margin: '40 0 0 0',
+                },
+                /*Кнопка оформить заказ*/{
+                    xtype: 'button',
+                    autoWidth: true,
+                    margin: '40 0 0 0',
+                    text: 'Оформить заказ',
+                    handler: function(){
+                        var datePickerField = Ext.ComponentQuery.query('datepicker')[0];
+                        var url = 'Order/ChangeOrderStatusOrdering/';
+                        Ext.Msg.confirm('Оформление заказы',
+                        'Вы уверены что хотите оформить заказ?',
+                        function (button) {
+                            if (button == 'yes') {
+                                Ext.Ajax.request({
+                                    url: url,
+                                    method: 'POST',
+                                    jsonData: {'time':datePickerField.getValue()},
+                                    success: function (response) {
+                                        Ext.Msg.alert('Уведомление', response.responseText);
+                                    },
+                                    failure: function(response){
+                                        Ext.Msg.alert('Уведомление', response.responseText);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }]
+            }]
+        };
     },
     GetRedactorOrders: function() {
         if(WebApp.User.isUserInRole(["manager","admin"])){

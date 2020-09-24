@@ -46,6 +46,13 @@ namespace WebApp.Models.Repository
             db.Entry(item).State = EntityState.Modified;
         }
 
+        public int GetOrderNumber()
+        {
+            int number = 32;
+            var parse = int.TryParse(Guid.NewGuid().ToString(), out number);
+            return number;
+        }
+
         private bool disposed = false;
         public virtual void Dispose(bool disposing)
         {

@@ -1,5 +1,6 @@
 namespace WebApp.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -22,7 +23,7 @@ namespace WebApp.Models
         public int ItemPrice { get; set; }
 
         public virtual Item Item { get; set; }
-
+        
         public virtual Order Order { get; set; }
     }
 }

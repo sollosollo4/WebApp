@@ -29,6 +29,7 @@ Ext.define('WebApp.view.Item.ItemsManageList', {
                             src: 'Content/images/icons/fam/delete.png',
                             width: 18,
                             height: 18,
+                            margin: '9 0 0 0',
                             listeners: {
                                 afterrender: function (me) {
                                     me.getEl().on('click', function () {

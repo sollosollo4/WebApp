@@ -1,5 +1,6 @@
 namespace WebApp.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -35,6 +36,7 @@ namespace WebApp.Models
 
         public virtual Customer Customer { get; set; }
 
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderElement> OrderElement { get; set; }
     }

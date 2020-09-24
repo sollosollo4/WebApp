@@ -6,12 +6,13 @@ Ext.onReady(function () {
         name: 'WebApp',
         appFolder: '../../app',
         models: ['Item', 'Order', 'Customer', 'OrderElement'],
-        stores: ['Items', 'Accounts'],
+        stores: ['Items', 'Accounts', 'OrderElements'],
         controllers: [
             'ItemsManageListController',
             'ItemsUserListController',
             'RolesController',
-            'AccountsListController'
+            'AccountsListController',
+            'BasketController'
         ],
         autoCreateViewport: false,
         launch: function(){

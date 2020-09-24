@@ -68,8 +68,8 @@ Ext.define('WebApp.view.Account.AccountsManageForm',{
             fieldLabel: 'UserName',
             margin: '0 20 0 0',
         }, {
-            name: 'Customer_CustomerId',
-            fieldLabel: 'Customer_CustomerId',
+            name: 'CustomerId',
+            fieldLabel: 'CustomerId',
             margin: '0 20 0 0',
         }]
     }],

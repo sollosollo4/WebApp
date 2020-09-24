@@ -183,16 +183,13 @@
     <Compile Include="Controllers\ItemsListManageController.cs" />
     <Compile Include="Controllers\ItemsListController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009182316097_update customer.cs" />
-    <Compile Include="Migrations\202009182316097_update customer.Designer.cs">
-      <DependentUpon>202009182316097_update customer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009190015316_add guid auto increment.cs" />
-    <Compile Include="Migrations\202009190015316_add guid auto increment.Designer.cs">
-      <DependentUpon>202009190015316_add guid auto increment.cs</DependentUpon>
+    <Compile Include="Migrations\202009241003333_Start Migrations.cs" />
+    <Compile Include="Migrations\202009241003333_Start Migrations.Designer.cs">
+      <DependentUpon>202009241003333_Start Migrations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -13619,11 +13616,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\ItemsListManage\Index.cshtml" />
     <Content Include="Views\ItemsList\Index.cshtml" />
-    <Content Include="Views\Account\LogOff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Content\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -13639,11 +13634,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009182316097_update customer.resx">
-      <DependentUpon>202009182316097_update customer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009190015316_add guid auto increment.resx">
-      <DependentUpon>202009190015316_add guid auto increment.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009241003333_Start Migrations.resx">
+      <DependentUpon>202009241003333_Start Migrations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
