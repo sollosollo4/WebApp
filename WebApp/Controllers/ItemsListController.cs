@@ -78,6 +78,8 @@ namespace WebApp.Controllers
         public string GetUserBasket()
         {
             var userCustomer = GetCurrentUser();
+            if (userCustomer == null)
+                return "У администратора не может быть корзины, так как он не является Customer client";
 
             var userBasket = db.Orders.GetAll().FirstOrDefault(x => x.CustomerId == userCustomer.CustomerId && x.Status == "Новый");
             if (userBasket != null) { 
@@ -85,7 +87,7 @@ namespace WebApp.Controllers
                 return jsonResult;
             }
             else
-                return "";
+                return "Корзина пуста";
         }
 
         /// <summary>
@@ -97,6 +99,8 @@ namespace WebApp.Controllers
         public string AddItemToUserBasket(Item item)
         {
             var userCustomer = GetCurrentUser();
+            if (userCustomer == null)
+                return "Администратор не является Customer client, поэтому не может добавлять товары в корзину";
             Order startOrder;
             if (userCustomer.Order.SingleOrDefault(x => x.Status == "Новый") == null)
             {
@@ -112,7 +116,7 @@ namespace WebApp.Controllers
             else
                 startOrder = userCustomer.Order.SingleOrDefault(x => x.Status == "Новый");
 
-            OrderElement newOrderElement = db.OrderElements.GetAll().SingleOrDefault(x => x.ItemId == item.ItemId);
+            OrderElement newOrderElement = startOrder.OrderElement.SingleOrDefault(x => x.ItemId == item.ItemId);
 
             if (newOrderElement != null)
             {
@@ -139,11 +143,21 @@ namespace WebApp.Controllers
         public string ChangeItemCountInBasket(Item item, int count)
         {
             var userCustomer = GetCurrentUser();
+            if (userCustomer == null)
+                return "Администратор не может изменять количество товаров в коризне, так как он не является Customer client";
             var userOrder = userCustomer.Order.SingleOrDefault(x => x.Status == "Новый");
 
             userOrder.OrderElement.SingleOrDefault(x => x.ItemId == item.ItemId).ItemsCount = count;
             db.Save();
             return "successful change item count in basket";
+        }
+
+        [HttpGet]
+        public string GetItemsCategories()
+        {
+            var categoriesName = db.Items.GetAll().Select(x => new { CategoryName = x.Category }).Distinct().ToList();
+            var jsonresult = JsonConvert.SerializeObject(categoriesName);
+            return jsonresult;
         }
 
         private Customer GetCurrentUser()

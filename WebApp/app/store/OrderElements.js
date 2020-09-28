@@ -3,7 +3,7 @@ Ext.define('WebApp.store.OrderElements', {
     model: 'WebApp.model.OrderElement',
     proxy: {
         type: 'ajax',
-        url: 'https://localhost:44341/ItemsList/GetUserBasket',
+        url: '/ItemsList/GetUserBasket',
         reader: {
             type: 'json',
             root: 'data'

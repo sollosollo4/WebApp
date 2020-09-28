@@ -24,7 +24,7 @@ Ext.define('WebApp.view.Account.AccountsManageList', {
             { header: 'AccessFailedCount', dataIndex: 'AccessFailedCount'},
             { header: 'UserName', dataIndex: 'UserName'},
             { header: 'CustomerId', dataIndex: 'CustomerId'},
-            {
+            /*{
                 header: 'Удалить', 
                 xtype: 'actioncolumn', 
                 width: 20, 
@@ -35,7 +35,7 @@ Ext.define('WebApp.view.Account.AccountsManageList', {
                         Ext.widget('image', {
                             renderTo: id,
                             name: 'delete',
-                            src: 'Content/images/icons/fam/delete.png',
+                            src: '../Content/images/icons/fam/delete.png',
                             width: 18,
                             height: 18,
                             listeners: {
@@ -46,17 +46,17 @@ Ext.define('WebApp.view.Account.AccountsManageList', {
                                             var sm = grid.getSelectionModel();
                                             var rs = sm.getSelection();
                                             if (!rs.length) {
-                                                Ext.Msg.alert('Информация', 'Вы не выбрали товар');
+                                                Ext.Msg.alert('Информация', 'Вы не выбрали пользователя');
                                                 return;
                                             }
-                                            Ext.Msg.confirm('Удаление товара',
-                                            'Вы точно хотите удалить этот товар?',
+                                            Ext.Msg.confirm('Удаление пользователя',
+                                            'Вы точно хотите удалить этого пользователя?',
                                             function (button) {
                                                 if (button == 'yes') {
                                                     var item = rs[0].getData();
                                                     var id = item.Id;
                                                     Ext.Ajax.request({
-                                                        url: '/ItemsListManage/DeleteItem',
+                                                        url: '/Account/DeleteAccount',
                                                         method: 'POST',
                                                         jsonData: { 'id': id },
                                                         success: function (response) {
@@ -74,7 +74,7 @@ Ext.define('WebApp.view.Account.AccountsManageList', {
                     }, 50);
                     return Ext.String.format('<div id="{0}"></div>', id);
                 }
-            }
+            }*/
         ];
         this.callParent(arguments);
     }

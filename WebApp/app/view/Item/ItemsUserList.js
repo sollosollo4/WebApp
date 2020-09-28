@@ -21,7 +21,7 @@ Ext.define('WebApp.view.Item.ItemsUserList', {
                         Ext.widget('image', {
                             renderTo: id,
                             name: 'add',
-                            src: 'Content/images/icons/fam/add.png',
+                            src: '../Content/images/icons/fam/add.png',
                             width: 18,
                             height: 18,
                             margin: '9 0 0 0',

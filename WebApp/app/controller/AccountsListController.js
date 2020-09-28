@@ -22,7 +22,6 @@ Ext.define('WebApp.controller.AccountsListController', {
         });
     },
     onRowdblclick: function (me, record, item, index) {
-        console.log(this);
         var win = this.getFormWindow();
         win.setTitle('Изменение пользователя');
         win.setAction('edit');
@@ -55,7 +54,6 @@ Ext.define('WebApp.controller.AccountsListController', {
         }
         else
             var url = '';
-
 
         if (action == 'edit') {
             url = '/ItemsListManage/EditItem?id=' + id;

@@ -26,7 +26,7 @@ Ext.define('WebApp.view.Item.ItemsManageList', {
                         Ext.widget('image', {
                             renderTo: id,
                             name: 'delete',
-                            src: 'Content/images/icons/fam/delete.png',
+                            src: '../Content/images/icons/fam/delete.png',
                             width: 18,
                             height: 18,
                             margin: '9 0 0 0',

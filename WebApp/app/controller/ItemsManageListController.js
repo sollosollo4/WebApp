@@ -40,7 +40,6 @@ Ext.define('WebApp.controller.ItemsManageListController', {
         var win = this.getFormWindow();
         var store = this.getItemsStore();
         var values = win.down('form').getValues();
-        debugger;
         var action = win.getAction();
         var grid = Ext.ComponentQuery.query('itemsmanagelist')[0];
         var id = 0;

@@ -23,8 +23,8 @@ Ext.define('WebApp.view.Viewport', {
             items:[
                 /* Каталог товаров */ this.GetCatalogButton(),
                 /* Корзина */ this.GetBasketButton(),
-                /* Заказы */ this.GetOrdersRedacorButton(),
-                /* Заказчики */ this.GetCustomersButton(),
+                /* Заказы */this.GetOrdersButton(),
+                /* Редактор Заказов */ this.GetOrdersRedacorButton(),
                 /* Пользователи */ this.GetAccountsRedacorButton(),
                 /* Выйти */ this.GetExitButton()
                 //'<a href="/Manage" title="Manage">Параметры учетной записи </a>'
@@ -46,6 +46,13 @@ Ext.define('WebApp.view.Viewport', {
             split: true,
             maxWidth: 400,
             collapsible: true,
+            items:[
+                /*Кнопка очистить фильтры*/
+                    this.GetClearFiltersButton(),
+                /*Панель фильтрации*/{
+                    xtype: 'panel',
+                }
+            ]
         },
         /* Дополнительная панель */ {
             xtype: 'panel',
@@ -63,10 +70,10 @@ Ext.define('WebApp.view.Viewport', {
             itemId:'CenterTabPanel',
             focusableContainer: false,
             items: [
-                this.GetItemListByRole(),       // Каталог товаров
-                this.GetBasket(),               // Корзина
-                this.GetRedactorOrders(),       // Редактор заказов
-                this.GetRedactorCustomers(),    // Список заказчиков
+                this.GetItemListByRoleView(),       // Каталог товаров
+                this.GetBasketView(),               // Корзина
+                this.GetOrdersView(),
+                this.GetRedactorOrdersView(),       // Редактор заказов
                 this.GetRedactorAccountsView(), // Редактор пользователей
             ]
         });
@@ -97,25 +104,22 @@ Ext.define('WebApp.view.Viewport', {
             }
         };
     },
+    GetOrdersButton: function(){
+        return {
+            xtype: 'button',
+            width: 120,
+            text: 'Заказы',
+            region: 'west',
+            handler: function(){
+                Ext.ComponentQuery.query('#CenterTabPanel')[0].getLayout().setActiveItem(2);
+            },
+        }
+    },
     GetOrdersRedacorButton: function() {
         if(WebApp.User.isUserInRole(["manager","admin"])){
             return {
                 xtype: 'button',
                 text: 'Редактор заказов',
-                region: 'east',
-                width: 160,
-                handler: function() {
-                    Ext.ComponentQuery.query('#CenterTabPanel')[0].getLayout().setActiveItem(2);
-                }
-            };
-        }
-        return null;
-    },
-    GetCustomersButton: function() {
-        if(WebApp.User.isUserInRole(["manager","admin"])){
-            return {
-                xtype: 'button',
-                text: 'Список заказчиков',
                 region: 'east',
                 width: 160,
                 handler: function() {
@@ -148,11 +152,18 @@ Ext.define('WebApp.view.Viewport', {
             handler: function(){
                 document.getElementById('logoutForm').submit();
             },
-            
         };
     },
+    GetClearFiltersButton: function(){
+        return {
+            xtype: 'button',
+            text: 'Очистить фильтры',
+            handler: function(){
+            },
+        }
+    },
     // Панель (Все элементы являются TabPageView)
-    GetItemListByRole: function() {
+    GetItemListByRoleView: function() {
         if(WebApp.User.isUserInRole(["manager"])){
             return {xtype: 'itemsmanagelist'};
         }
@@ -160,7 +171,7 @@ Ext.define('WebApp.view.Viewport', {
             return {xtype: 'itemsuserlist'};
         }
     },
-    GetBasket: function() {
+    GetBasketView: function() {
         return {
             xtype: 'panel',
             layout: {
@@ -168,7 +179,7 @@ Ext.define('WebApp.view.Viewport', {
                 align: 'stretch',
             },
             title: 'Корзина',
-            items:[{
+            /*Панель корзины*/items:[{
                 xtype: 'basket',
             }, {
                 xtype: 'panel',
@@ -213,15 +224,40 @@ Ext.define('WebApp.view.Viewport', {
             }]
         };
     },
-    GetRedactorOrders: function() {
+    GetRedactorOrdersView: function() {
         if(WebApp.User.isUserInRole(["manager","admin"])){
-            return {xtype: 'panel', title:'Редактор заказов', html: 'Редактор заказов'};
-        }
-        return null;
-    },
-    GetRedactorCustomers: function() {
-        if(WebApp.User.isUserInRole(["manager","admin"])){
-            return {xtype: 'panel', title:'Список заказчиков', html: 'Список заказчиков'};
+            return { 
+                xtype: 'panel',
+                title: 'Редактор заказов',
+                forceFit: true,
+                scroll: true,
+                autoScroll: true,
+                items:[
+                /*Новые заказы*/{ 
+                    xtype: 'ordersmanagelist', 
+                    title:'Новые заказы', 
+                    store: 'NewOrders',
+                    bind: {
+                        store: 'NewOrders'
+                    },
+                },
+                /*Выполняемые заказы*/{
+                    xtype: 'ordersmanagelist', 
+                    title:'В процессе', 
+                    store: 'Orders',
+                    bind: {
+                        store: 'Orders'
+                    },
+                },
+                /*Выполненные*/{
+                    xtype: 'ordersmanagelist', 
+                    title:'Архив заказов', 
+                    store: 'OldOrders',
+                    bind: {
+                        store: 'OldOrders'
+                    },
+                }]
+            }
         }
         return null;
     },
@@ -231,4 +267,21 @@ Ext.define('WebApp.view.Viewport', {
         }
         return null;
     },
+    GetOrdersView: function(){
+        return {
+            xtype: 'panel', 
+            title: 'Заказы',
+            forceFit: true,
+            scroll: true,
+            autoScroll: true, 
+            items: [
+                {
+                    xtype: 'ordersuserlist', 
+                    store: 'UserOrders'},
+                {
+                    xtype: 'ordersuserlist', 
+                    store: 'UserOldOrders'
+                }
+            ]}
+    }
 });

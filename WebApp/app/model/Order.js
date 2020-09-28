@@ -1,12 +1,14 @@
 Ext.define('WebApp.model.Order', {
     extend: 'Ext.data.Model',
-	idProperty: 'OrderId',
     fields: [
+		{name : 'OrderId'}, 
 		{name : 'CustomerId'}, 
-		{name : 'OrderDate'}, 
+		{name : 'OrderDate'},
 		{name : 'ShipmentDate'},
 		{name : 'OrderNumber'},
-		{name : 'Status'}
+		{name : 'Status'},
+		{name : 'Customer', mapping: 'Customer'},
+		{name : 'OrderElement', mapping: 'OrderElement'},
 	],
 	hasMany : {
         model : 'OrderElement',

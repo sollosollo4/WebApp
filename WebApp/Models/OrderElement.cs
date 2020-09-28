@@ -23,7 +23,8 @@ namespace WebApp.Models
         public int ItemPrice { get; set; }
 
         public virtual Item Item { get; set; }
-        
+
+        [JsonIgnore]
         public virtual Order Order { get; set; }
     }
 }

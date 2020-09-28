@@ -19,7 +19,7 @@ Ext.define('WebApp.store.Accounts', {
     ],
     proxy: {
         type: 'ajax',
-        url: 'https://localhost:44341/Account/GetUserStoreAsync',
+        url: '/Account/GetUserStoreAsync',
         reader: {
             type: 'json',
             root: 'items'

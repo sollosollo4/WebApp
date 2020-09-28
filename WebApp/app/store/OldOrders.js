@@ -1,11 +1,9 @@
-Ext.define('WebApp.store.Items', {
+Ext.define('WebApp.store.OldOrders', {
     extend: 'Ext.data.Store',
-    model: 'WebApp.model.Item',
-    storeId: 'ItemsStore',
-    fields: ['ItemId','Code','Name','Price','Category'],
+    model: 'WebApp.model.Order',
     proxy: {
         type: 'ajax',
-        url: '/ItemsList/GetItem',
+        url: '/Order/GetOldOrders',
         reader: {
             type: 'json',
             root: 'data'
