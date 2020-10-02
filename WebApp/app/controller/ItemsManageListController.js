@@ -67,6 +67,9 @@ Ext.define('WebApp.controller.ItemsManageListController', {
             jsonData: values,
             success: function (response) {
                 var grid = Ext.ComponentQuery.query('itemsmanagelist')[0];
+                var logstore = Ext.getStore('Loger');
+                logstore.add({Time: Ext.Date.format(new Date(), 'H:i'), logText: 'Операция над товаром была успешна завершена'});
+                logstore.load();
                 grid.getStore().load();
             }
         });

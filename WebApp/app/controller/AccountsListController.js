@@ -67,6 +67,9 @@ Ext.define('WebApp.controller.AccountsListController', {
             jsonData: values,
             success: function (response) {
                 var grid = Ext.ComponentQuery.query('accountsmanagelist')[0];
+                var logstore = Ext.getStore('Loger');
+                        logstore.add({Time: Ext.Date.format(new Date(), 'H:i'), logText: 'Операция над пользователем была успешна завершена!'});
+                        logstore.load();
                 grid.getStore().load();
             }
         });

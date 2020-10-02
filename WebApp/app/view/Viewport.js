@@ -23,7 +23,7 @@ Ext.define('WebApp.view.Viewport', {
             items:[
                 /* Каталог товаров */ this.GetCatalogButton(),
                 /* Корзина */ this.GetBasketButton(),
-                /* Заказы */this.GetOrdersButton(),
+                /* Заказы */ this.GetOrdersButton(),
                 /* Редактор Заказов */ this.GetOrdersRedacorButton(),
                 /* Пользователи */ this.GetAccountsRedacorButton(),
                 /* Выйти */ this.GetExitButton()
@@ -34,34 +34,16 @@ Ext.define('WebApp.view.Viewport', {
             xtype: 'panel',
             title: 'Информация',
             region: 'south',
-            height: 100,
+            height: 160,
             split: true,
             maxHeight: 400,
-        },
-        /* Панель фильтрации */ {
-            xtype: 'panel',
-            title: 'Фильтрация',
-            region: 'west',
-            width: 120,
-            split: true,
-            maxWidth: 400,
-            collapsible: true,
-            items:[
-                /*Кнопка очистить фильтры*/
-                    this.GetClearFiltersButton(),
-                /*Панель фильтрации*/{
-                    xtype: 'panel',
+            items: [
+                {
+                    xtype: 'logerPanel',
+                    id: 'logerPanel'
                 }
             ]
-        },
-        /* Дополнительная панель */ {
-            xtype: 'panel',
-            title: 'Дополнительная панель',
-            region: 'east',
-            width: 170,
-            collapsible: true,
-            border: true,
-        });
+        },);
 
         // Основная центральная панель с контентом
         items.push({
@@ -72,7 +54,7 @@ Ext.define('WebApp.view.Viewport', {
             items: [
                 this.GetItemListByRoleView(),       // Каталог товаров
                 this.GetBasketView(),               // Корзина
-                this.GetOrdersView(),
+                this.GetOrdersView(),               // Заказы
                 this.GetRedactorOrdersView(),       // Редактор заказов
                 this.GetRedactorAccountsView(), // Редактор пользователей
             ]
@@ -277,9 +259,11 @@ Ext.define('WebApp.view.Viewport', {
             items: [
                 {
                     xtype: 'ordersuserlist', 
+                    title: 'Заказы в процессе',
                     store: 'UserOrders'},
                 {
                     xtype: 'ordersuserlist', 
+                    title: 'Выполненные заказы',
                     store: 'UserOldOrders'
                 }
             ]}

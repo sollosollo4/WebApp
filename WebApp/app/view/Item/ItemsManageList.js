@@ -1,6 +1,7 @@
 Ext.define('WebApp.view.Item.ItemsManageList', {
     extend: 'Ext.grid.Panel',
     alias: ['widget.itemsmanagelist', 'Ext.grid.plugin.ColumnResizing'],
+    requires: ['WebApp.view.SearchTrigger'],
     title: 'Каталог товаров',
     store: 'Items',
     forceFit: true,
@@ -12,9 +13,19 @@ Ext.define('WebApp.view.Item.ItemsManageList', {
         }];
         this.columns = [
             { header: 'Код товара', dataIndex: 'Code', width: 60},
-            { header: 'Название товара', dataIndex: 'Name'},
+            { header: 'Название товара', dataIndex: 'Name',
+                items: [{
+                    xtype: 'searchtrigger',
+                    autoSearch: true
+                }]
+            },
             { header: 'Цена', dataIndex: 'Price'},
-            { header: 'Категория', dataIndex: 'Category'},
+            { header: 'Категория', dataIndex: 'Category',
+                items: [{
+                    xtype: 'searchtrigger',
+                    autoSearch: true
+                }]
+            },
             {
                 header: 'Удалить', 
                 xtype: 'actioncolumn', 

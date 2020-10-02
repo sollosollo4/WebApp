@@ -5,11 +5,11 @@ Ext.onReady(function () {
     Ext.application({
         name: 'WebApp',
         appFolder: '../../app',
-        models: ['Item', 'Order', 'Customer', 'OrderElement'],
+        models: ['Item', 'Order', 'Customer', 'OrderElement', 'Loger'],
         stores: [
             'Items', 'Accounts', 'OrderElements', 
             'NewOrders', 'Orders', 'OldOrders',
-            'UserOrders', 'UserOldOrders'
+            'UserOrders', 'UserOldOrders', 'Loger'
         ],
         controllers: [
             'ItemsManageListController',
@@ -18,7 +18,8 @@ Ext.onReady(function () {
             'AccountsListController',
             'BasketController',
             'OrdersListManageController',
-            'OrdersListUserController'
+            'OrdersListUserController',
+            'LogerPanelController'
         ],
         autoCreateViewport: false,
         launch: function(){

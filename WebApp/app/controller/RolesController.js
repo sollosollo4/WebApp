@@ -15,6 +15,9 @@ Ext.define("WebApp.controller.RolesController", {
                             roles: roles
                         });
                         Ext.create("WebApp.view.Viewport");
+                        var logstore = Ext.getStore('Loger');
+                        logstore.add({Time: Ext.Date.format(new Date(), 'H:i'), logText: 'Добро пожаловать в интернет магазин!'});
+                        logstore.load();
                     }
                 } 
             });

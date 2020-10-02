@@ -67,6 +67,7 @@ Ext.define('WebApp.view.Order.OrdersManageList', {
         itemclick: function(view, record, item, index, e, eOpts){
             if(e.target.type == "button"){
                 var UpdateStores = this.UpdateStores;
+                var logstore = Ext.getStore('Loger');
                 var values = record.data;
                 var url = '../Order/ChangeOrderStatus/';
                 if(e.target.className == "cofirm"){
@@ -77,6 +78,8 @@ Ext.define('WebApp.view.Order.OrdersManageList', {
                             jsonData: {'order': values, 'currentStatus': 'Выполняется'},
                             success: function (response) {
                                 Ext.Msg.alert('Уведомление', 'Заказ был успешно оформлен, теперь его статус "Выполняется"');
+                                logstore.add({Time: Ext.Date.format(new Date(), 'H:i'), logText: 'Заказ был успешно оформлен, теперь его статус "Выполняется"'});
+                                logstore.load();
                                 UpdateStores();
                             },
                             failure: function(response){
@@ -90,6 +93,8 @@ Ext.define('WebApp.view.Order.OrdersManageList', {
                             jsonData: {'order': values, 'currentStatus': 'Выполнен'},
                             success: function (response) {
                                 Ext.Msg.alert('Уведомление', 'Заказ был успешно подтверждён, теперь его статус "Выполнен"');
+                                logstore.add({Time: Ext.Date.format(new Date(), 'H:i'), logText: 'Заказ был успешно подтверждён, теперь его статус "Выполнен"'});
+                                logstore.load();
                                 UpdateStores();
                             },
                             failure: function(response){
@@ -127,6 +132,8 @@ Ext.define('WebApp.view.Order.OrdersManageList', {
                                     jsonData: {'order': values, 'currentStatus': 'Удалить'},
                                     success: function (response) {
                                         Ext.Msg.alert('Уведомление', 'Заказ был успешно отменён.');
+                                        logstore.add({Time: Ext.Date.format(new Date(), 'H:i'), logText: 'Заказ был успешно отменён.'});
+                                        logstore.load();
                                         UpdateStores();
                                     },
                                     failure: function(response){

@@ -1,7 +1,6 @@
 Ext.define('WebApp.view.Order.OrdersUserList', {
     extend: 'Ext.grid.Panel',
     alias: ['widget.ordersuserlist', 'Ext.grid.plugin.ColumnResizing'],
-    title: 'Каталог товаров',
     forceFit: true,
     scroll: true,
     autoScroll: true,
