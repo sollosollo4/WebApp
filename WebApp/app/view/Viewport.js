@@ -194,9 +194,22 @@ Ext.define('WebApp.view.Viewport', {
                                     jsonData: {'time':datePickerField.getValue()},
                                     success: function (response) {
                                         Ext.Msg.alert('Уведомление', response.responseText);
+                                        var logstore = Ext.getStore('Loger');
+                                        logstore.add({Time: Ext.Date.format(new Date(), 'H:i'), logText: 'Заказ был успешно оформлен.'});
+                                        logstore.load();
+
+                                        var NewOrders = Ext.getStore('NewOrders');
+                                        var Orders = Ext.getStore('Orders');
+                                        var OldOrders = Ext.getStore('OldOrders');
+                                        NewOrders.load();
+                                        Orders.load();
+                                        OldOrders.load();
                                     },
                                     failure: function(response){
                                         Ext.Msg.alert('Уведомление', response.responseText);
+                                        var logstore = Ext.getStore('Loger');
+                                        logstore.add({Time: Ext.Date.format(new Date(), 'H:i'), logText: 'При оформлении заказа произошла ошибка: ' + response.responseText});
+                                        logstore.load();
                                     }
                                 });
                             }

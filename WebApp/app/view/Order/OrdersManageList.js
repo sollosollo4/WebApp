@@ -55,10 +55,30 @@ Ext.define('WebApp.view.Order.OrdersManageList', {
     ],
     initComponent: function () {
         this.columns = [
-            { header: 'Номер заказа', dataIndex: 'OrderNumber'},
-            { header: 'Дата заказа', dataIndex: 'OrderDate'},
-            { header: 'Дата доставки', dataIndex: 'ShipmentDate'},
-            { header: 'Статус', dataIndex: 'Status'},
+            { header: 'Номер заказа', dataIndex: 'OrderNumber',
+                items: [{
+                    xtype: 'searchtrigger',
+                    autoSearch: true
+                }]
+            },
+            { header: 'Дата заказа', dataIndex: 'OrderDate',
+                items: [{
+                    xtype: 'searchtrigger',
+                    autoSearch: true
+                }]
+            },
+            { header: 'Дата доставки', dataIndex: 'ShipmentDate',
+                items: [{
+                    xtype: 'searchtrigger',
+                    autoSearch: true
+                }]
+            },
+            { header: 'Статус', dataIndex: 'Status',
+                items: [{
+                    xtype: 'searchtrigger',
+                    autoSearch: true
+                }]
+            },
         ];
         this.callParent(arguments);
     },

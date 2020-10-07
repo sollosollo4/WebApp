@@ -8,15 +8,27 @@ Ext.define('WebApp.view.Basket.Basket', {
         this.columns = [
         /*Код товара*/{
             header: 'Код товара',
-            dataIndex: 'Item.Code'
+            dataIndex: 'Item.Code',
+            items: [{
+                xtype: 'searchtrigger',
+                autoSearch: true
+            }]
         },
         /*Наименование товара*/{
             header: 'Наименование товара',
-            dataIndex: 'Item.Name'
+            dataIndex: 'Item.Name',
+            items: [{
+                xtype: 'searchtrigger',
+                autoSearch: true
+            }]
         },
         /*Цена*/{
             header: 'Цена',
-            dataIndex: 'ItemPrice'
+            dataIndex: 'ItemPrice',
+            items: [{
+                xtype: 'searchtrigger',
+                autoSearch: true
+            }]
         },
         /*Количество*/{
             header: 'Количество',

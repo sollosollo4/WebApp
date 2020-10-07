@@ -7,14 +7,24 @@ Ext.define('WebApp.view.Item.ItemsUserList', {
     forceFit: true,
     initComponent: function () {
         this.columns = [
-            { header: 'Код товара', dataIndex: 'Code', width: 60},
+            { header: 'Код товара', dataIndex: 'Code', width: 60,
+                items: [{
+                    xtype: 'searchtrigger',
+                    autoSearch: true
+                }]
+            },
             { header: 'Название товара', dataIndex: 'Name',
                 items: [{
                     xtype: 'searchtrigger',
                     autoSearch: true
                 }]
             },
-            { header: 'Цена', dataIndex: 'Price'},
+            { header: 'Цена', dataIndex: 'Price',
+                items: [{
+                    xtype: 'searchtrigger',
+                    autoSearch: true
+                }]
+            },
             { header: 'Категория', dataIndex: 'Category',
                 items: [{
                     xtype: 'searchtrigger',
